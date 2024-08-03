@@ -1,0 +1,6 @@
+/.idea
+/target
+/tomcat.8080
+/tz
+/out
+database.properties
