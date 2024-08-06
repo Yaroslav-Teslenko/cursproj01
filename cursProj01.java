@@ -46,12 +46,6 @@ public class cursProj01 {
         System.out.printf("%n%n");
     }
 
-    private static void clearConsol() {
-        System.out.print("\033[H\033[J");
-    }
-
-    ;
-
     private static void calcSumDigits() {
         Scanner scanner = new Scanner(System.in);
         String command, promt = getShift() + "Enter an integer number";
@@ -76,14 +70,14 @@ public class cursProj01 {
                 if (!command.equals("q")) {
                     clearConsol();
                     promptExit();
-                    System.out.println(promt);
+                    promptWrongInput(command);
+                    //System.out.println(promt);
                 }
             }
 
         } while (!command.equals("q"));
 
     }
-
     private static void inverseDigits() {
         Scanner scanner = new Scanner(System.in);
         String command, promt = getShift() + "Enter an integer number ";
@@ -107,17 +101,16 @@ public class cursProj01 {
                 if (!command.equals("q")) {
                     clearConsol();
                     promptExit();
-                    System.out.println(promt);
+                    promptWrongInput(command);
+                    //System.out.println(promt);
                 }
             }
         } while (!command.equals("q"));
 
     }
-
-
     private static void calcNameDigit() {
         Scanner scanner = new Scanner(System.in);
-        String command, promt = getShift() + "Enter a name. (english only)";
+        String command, promt = getShift() + "Enter a name. (english only, letters only)";
         clearConsol();
         promptExit();
         System.out.println(promt);
@@ -128,14 +121,45 @@ public class cursProj01 {
             if (!command.equals("q") || isAlfabet(command)) {
                 int sum = 0;
                 for (int i = 0; i < command.length(); i++) {
-                    sum += calcNameDigit(command.charAt(i));
+                    sum += returnNumberOfLettter(command.charAt(i));
                 }
                 System.out.println(getShift() + "the name number = " + sum);
             } else {
                 if (!command.equals("q")) {
                     clearConsol();
                     promptExit();
-                    System.out.println(promt);
+                    promptWrongInput(command);
+                    //System.out.println(promt);
+                }
+            }
+
+        } while (!command.equals("q"));
+
+    }
+    private static void calcSumDate() {
+        Scanner scanner = new Scanner(System.in);
+        String command, promt = getShift() + "Enter an date, format dd/mm/yyyy";
+        clearConsol();
+        promptExit();
+
+        do {
+            System.out.println(promt);
+            command = scanner.nextLine();
+            command = command.trim();
+            if (isDate(command)) {
+                int sum = 0;
+                for (int i = 0; i < command.length(); i++) {
+                    if (command.charAt(i)=='/') continue;
+                    sum += Integer.parseInt(String.valueOf(command.charAt(i)));
+                }
+                System.out.println(getShift() + "the sum of the digits of a date = " + sum);
+
+            } else {
+                if (!command.equals("q")) {
+                    clearConsol();
+                    promptExit();
+                    promptWrongInput(command);
+                    //System.out.println(promt);
                 }
             }
 
@@ -143,32 +167,9 @@ public class cursProj01 {
 
     }
 
-    private static boolean isInteger(String s) {
-        if (s == null || s.isEmpty()) return false;
-        //проверяем на минус (s.charAt(0) == '-') ? 1 : 0
-        for (int i = (s.charAt(0) == '-') ? 1 : 0; i < s.length(); i++) {
-            if (!Character.isDigit(s.charAt(i))) {
-                return false;
-            }
-        }
-        return true;
-    }
 
-    private static boolean isAlfabet(String s) {
-        if (s == null || s.isEmpty()) return false;
-        for (int i = 0; i < s.length(); i++) {
-            if (!Character.isAlphabetic(s.charAt(i))) {
-                return false;
-            }
-        }
-        return true;
-    }
 
-    private static void promptExit() {
-        System.out.println(getShift() + "q.  Exit ");
-    }
-
-    private static int calcNameDigit(char letter) {
+    private static int returnNumberOfLettter(char letter) {
         char[] arrLetters = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
         int number = 0;
         letter = Character.toLowerCase(letter);
@@ -182,66 +183,82 @@ public class cursProj01 {
         return number;
     }
 
-    private static String getShift() {
-        return "    ";
-    }
-
-    public static void tm() {
-        for (int i = 0; i < 3; i++) {
-            // Ваш код
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ex) {
-            }
-        }
-    }
-
-    private static boolean isDate(String str) {
-
-
-        if (str.length() != 10) return false;
-        if (!(str.charAt(2) == '/' && str.charAt(2) == str.charAt(5))) return false;
-        for (int i = 0; i < str.length(); i++) {
-            if (i == 2 || i == 5) continue;
-            if (!Character.isDigit(str.charAt(i))) {
+    private static boolean isAlfabet(String s) {
+        if (s == null || s.isEmpty()) return false;
+        for (int i = 0; i < s.length(); i++) {
+            if (!Character.isAlphabetic(s.charAt(i))) {
                 return false;
             }
         }
-        String strD=str.substring(0, 1);
-        String strM=str.substring(3, 4);
-        String strY=str.substring(6);
-        if (!(Integer.parseInt(strD) > 31)) return false;
-        if (!(Integer.parseInt(strM) > 12)) return false;
-
-        switch (){
-
+        return true;
+    }
+    private static boolean isInteger(String s) {
+        if (s == null || s.isEmpty()) return false;
+        //проверяем на минус (s.charAt(0) == '-') ? 1 : 0
+        for (int i = (s.charAt(0) == '-') ? 1 : 0; i < s.length(); i++) {
+            if (!Character.isDigit(s.charAt(i))) {
+                return false;
+            }
         }
         return true;
     }
 
-    private static void calcSumDate() {
-        Scanner scanner = new Scanner(System.in);
-        String command, promt = getShift() + "Enter an date";
-        clearConsol();
-        promptExit();
+    private static boolean isDate(String str) {
+        if (str.length() > 10) return false;
 
-        do {
-            System.out.println(promt);
-            command = scanner.nextLine();
-            command = command.trim();
-            if (isDate(command)) {
-
-                System.out.println(getShift() + "the sum of the digits of a number = " + command);
-
-            } else {
-                if (!command.equals("q")) {
-                    clearConsol();
-                    promptExit();
-                    System.out.println(promt);
-                }
+        int posSl1 = -1, posSl2 = -1;
+        for (int i = 0; i < str.length(); i++) {
+            if (!(Character.isDigit(str.charAt(i)) || str.charAt(i) == '/')) {
+                return false;
             }
+            if (str.charAt(i) == '/') {
+                if (posSl2 > 0) return false;
+                if (posSl1 > 0) posSl2 = i;
+                else posSl1 = i;
+            } ;
+        }
+        if (posSl1<0 || posSl2 < 0) return false;
+        String strD=str.substring(0,posSl1);
+        String strM=str.substring(posSl1+1,posSl2);
+        String strY=str.substring(posSl2+1);
 
-        } while (!command.equals("q"));
+//        System.out.println(strD);
+//        System.out.println(strM);
+//        System.out.println(strY);
 
+        if (strY.isEmpty()) return false;
+
+        if ((Integer.parseInt(strD) > 31)) return false;
+        if ((Integer.parseInt(strM) > 12)) return false;
+
+        switch (strM) {
+//            case "01","03","05","07","08":
+//            case "1","3","5","7","8","10","12":
+//                return true;
+//                break;
+            case "04","06","09":
+            case "4","6","9","11":
+                if (!(Integer.parseInt(strD) <= 30)) return false;
+                break;
+            case "2","02":
+                if (!(Integer.parseInt(strD) <= 29)) return false;
+                if (Integer.parseInt(strD) == 29 && Integer.parseInt(strY)%4!=0 ) return false;
+                break;
+        }
+        return true;
+    }
+
+
+    private static void clearConsol() {
+        System.out.print("\033[H\033[J");
+    }
+    private static void promptExit() {
+        System.out.println(getShift() + "q.  Exit ");
+    }
+    private static void promptWrongInput(String str) {
+        System.out.println(getShift()+"  " +str+ " is wrong input! ");
+    }
+    private static String getShift() {
+        return "    ";
     }
 }
