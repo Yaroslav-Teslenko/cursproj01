@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.concurrent.TimeUnit;
@@ -9,6 +10,7 @@ public class cursProj01 {
         String command;
         do {
             drawMainMenu();
+            System.out.println(getShift() + "Make you choice: ");
             command = scanner.nextLine();
             switch (command) {
                 case "1":
@@ -19,6 +21,9 @@ public class cursProj01 {
                     break;
                 case "3":
                     calcNameDigit();
+                    break;
+                case "4":
+                    calcSumDate();
                     break;
             }
             ;
@@ -36,7 +41,7 @@ public class cursProj01 {
         System.out.println(getShift() + "3. Calculate the name number");
         System.out.println(getShift() + "4. Calculate the number of digits of a date");
 
-        System.out.printf("%n%n");
+        System.out.printf("%n");
         promptExit();
         System.out.printf("%n%n");
     }
@@ -56,7 +61,7 @@ public class cursProj01 {
         do {
             System.out.println(promt);
             command = scanner.nextLine();
-            command=command.trim();
+            command = command.trim();
             if (isInteger(command)) {
                 int z = Integer.parseInt(command);
                 z = z > 0 ? z : -1 * z;
@@ -69,9 +74,9 @@ public class cursProj01 {
 
             } else {
                 if (!command.equals("q")) {
-                clearConsol();
-                promptExit();
-                System.out.println(promt);
+                    clearConsol();
+                    promptExit();
+                    System.out.println(promt);
                 }
             }
 
@@ -87,7 +92,7 @@ public class cursProj01 {
         System.out.println(promt);
         do {
             command = scanner.next();
-            command=command.trim();
+            command = command.trim();
             if (isInteger(command)) {
                 int z = Integer.parseInt(command);
                 z = z > 0 ? z : -1 * z;
@@ -119,7 +124,7 @@ public class cursProj01 {
 
         do {
             command = scanner.next();
-            command=command.trim();
+            command = command.trim();
             if (!command.equals("q") || isAlfabet(command)) {
                 int sum = 0;
                 for (int i = 0; i < command.length(); i++) {
@@ -137,6 +142,7 @@ public class cursProj01 {
         } while (!command.equals("q"));
 
     }
+
     private static boolean isInteger(String s) {
         if (s == null || s.isEmpty()) return false;
         //проверяем на минус (s.charAt(0) == '-') ? 1 : 0
@@ -188,5 +194,54 @@ public class cursProj01 {
             } catch (InterruptedException ex) {
             }
         }
+    }
+
+    private static boolean isDate(String str) {
+
+
+        if (str.length() != 10) return false;
+        if (!(str.charAt(2) == '/' && str.charAt(2) == str.charAt(5))) return false;
+        for (int i = 0; i < str.length(); i++) {
+            if (i == 2 || i == 5) continue;
+            if (!Character.isDigit(str.charAt(i))) {
+                return false;
+            }
+        }
+        String strD=str.substring(0, 1);
+        String strM=str.substring(3, 4);
+        String strY=str.substring(6);
+        if (!(Integer.parseInt(strD) > 31)) return false;
+        if (!(Integer.parseInt(strM) > 12)) return false;
+
+        switch (){
+
+        }
+        return true;
+    }
+
+    private static void calcSumDate() {
+        Scanner scanner = new Scanner(System.in);
+        String command, promt = getShift() + "Enter an date";
+        clearConsol();
+        promptExit();
+
+        do {
+            System.out.println(promt);
+            command = scanner.nextLine();
+            command = command.trim();
+            if (isDate(command)) {
+
+                System.out.println(getShift() + "the sum of the digits of a number = " + command);
+
+            } else {
+                if (!command.equals("q")) {
+                    clearConsol();
+                    promptExit();
+                    System.out.println(promt);
+                }
+            }
+
+        } while (!command.equals("q"));
+
     }
 }
