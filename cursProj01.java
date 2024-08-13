@@ -1,7 +1,6 @@
-import java.time.LocalDate;
+
 import java.util.Scanner;
-import java.util.Timer;
-import java.util.concurrent.TimeUnit;
+
 
 public class cursProj01 {
 
@@ -10,7 +9,7 @@ public class cursProj01 {
         String command;
         do {
             drawMainMenu();
-            System.out.println(getShift() + "Make you choice: ");
+            System.out.print(getShift() + "Make you choice: ");
             command = scanner.nextLine();
             switch (command) {
                 case "1":
@@ -48,12 +47,12 @@ public class cursProj01 {
 
     private static void calcSumDigits() {
         Scanner scanner = new Scanner(System.in);
-        String command, promt = getShift() + "Enter an integer number";
+        String command, promt = getShift() + "Enter an integer number ";
         clearConsol();
         promptExit();
 
         do {
-            System.out.println(promt);
+            System.out.print(promt);
             command = scanner.nextLine();
             command = command.trim();
             if (isInteger(command)) {
@@ -83,8 +82,9 @@ public class cursProj01 {
         String command, promt = getShift() + "Enter an integer number ";
         clearConsol();
         promptExit();
-        System.out.println(promt);
+
         do {
+            System.out.print(promt);
             command = scanner.next();
             command = command.trim();
             if (isInteger(command)) {
@@ -110,12 +110,13 @@ public class cursProj01 {
     }
     private static void calcNameDigit() {
         Scanner scanner = new Scanner(System.in);
-        String command, promt = getShift() + "Enter a name. (english only, letters only)";
+        String command, promt = getShift() + "Enter a name. (english only, letters only)  ";
         clearConsol();
         promptExit();
-        System.out.println(promt);
+
 
         do {
+            System.out.print(promt);
             command = scanner.next();
             command = command.trim();
             if (!command.equals("q") || isAlfabet(command)) {
@@ -138,12 +139,12 @@ public class cursProj01 {
     }
     private static void calcSumDate() {
         Scanner scanner = new Scanner(System.in);
-        String command, promt = getShift() + "Enter an date, format dd/mm/yyyy";
+        String command, promt = getShift() + "Enter an date, format dd/mm/yyyy   ";
         clearConsol();
         promptExit();
 
         do {
-            System.out.println(promt);
+            System.out.print(promt);
             command = scanner.nextLine();
             command = command.trim();
             if (isDate(command)) {
@@ -232,18 +233,13 @@ public class cursProj01 {
         if ((Integer.parseInt(strM) > 12)) return false;
 
         switch (strM) {
-//            case "01","03","05","07","08":
-//            case "1","3","5","7","8","10","12":
-//                return true;
-//                break;
-            case "04","06","09":
-            case "4","6","9","11":
+            case "04", "06", "09", "4", "6", "9", "11" -> {
                 if (!(Integer.parseInt(strD) <= 30)) return false;
-                break;
-            case "2","02":
+            }
+            case "2", "02" -> {
                 if (!(Integer.parseInt(strD) <= 29)) return false;
-                if (Integer.parseInt(strD) == 29 && Integer.parseInt(strY)%4!=0 ) return false;
-                break;
+                if (Integer.parseInt(strD) == 29 && Integer.parseInt(strY) % 4 != 0) return false;
+            }
         }
         return true;
     }
